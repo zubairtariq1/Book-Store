@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Book-Store</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">  
@@ -23,9 +23,9 @@
 			<th>Year</th>
 			<th>Price</th>
 			<th>Category</th>
-			<th>Action</th>
-			<th sec:authorize="hasRole('ADMIN')"> </th>
-			<th sec:authorize="hasRole('USER')"> </th>
+			<th>Actions</th>
+			<th sec:authorize="hasAuthority('ADMIN')"> </th>
+			<th sec:authorize="hasAuthority('USER')"> </th>
 		</tr>
 		<tr th:each="book : ${books}">
 			<td th:text="${book.title}"></td>
@@ -34,7 +34,8 @@
 			<td th:text="${book.year}"></td>
 			<td th:text="${book.price}"></td>
 			<td th:text="${book.category.name}"></td>
-			<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>&nbsp;<a class="btn btn-primary" th:href="@{/editBook/{id}(id=${book.id})}">Edit</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>&nbsp;<a th:href="@{/editBook/{id}(id=${book.id})}" class="btn btn-primary">Edit</a></td>
+		
 			
 		</tr>
 		
